@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasky Appln</title>
+
+    <!-- Custom CSS File -->
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- Bootrstarp CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Bungee+Tint&family=Kalnia+Glaze:wdth,wght@125,700&family=Sixtyfour+Convergence&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      .bg-body-tertiary {
+        --bs-bg-opacity: 1;
+        background-color: #3a3434 !important;
+    }
+    </style>
+  </head>
+
+  <body onload="loadInitialData()">
+    <!--Open Task Modal Btn -->
+    <!-- <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#showTask"
+    >
+      Open Task
+    </button> -->
+
+    <!-- Open Task Modal Modal -->
+    <div
+      class="modal fade"
+      id="showTask"
+      tabindex="-1"
+      aria-labelledby="showTaskLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="showTaskLabel">Task Details</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body task__modal_body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile screen btn -->
+    <div class="add_new_mobile_btn">
+      <button
+        class="btn btn-primary d-flex gap-2 align-items-center"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#addNewModal"
+      >
+        <i class="fa-solid fa-plus"></i>Add New Item
+      </button>
+    </div>
+
+    <!-- Add New Item Modal -->
+    <div
+      class="modal fade"
+      id="addNewModal"
+      tabindex="-1"
+      aria-labelledby="addNewModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addNewModalLabel">Add New Task</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="imageUrl" class="form-label">Image URL</label>
+                <input
+                  type="url"
+                  class="form-control"
+                  id="imageUrl"
+                  aria-describedby="imageHelp"
+                  placeholder="https://rohan.kinnal/profile.jpg"
+                />
+                <div id="imageHelp" class="form-text">
+                  Its a optional filed here :-(
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="taskTitle" class="form-label">Task Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="taskTitle"
+                  placeholder="enter the task title"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="tags" class="form-label">Task Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tags"
+                  placeholder="enter the task type"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="taskDescription" class="form-label"
+                  >Task Description</label
+                >
+                <!-- <input
+                  type="text"
+                  class="form-control"
+                  id="tags"
+                  placeholder="enter the task type"
+                /> -->
+                <textarea
+                  id="taskDescription"
+                  placeholder="enter the task decription"
+                  class="form-control"
+                ></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="handleSbmitBtn()"
+            >
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"><p>To-Do-List</p></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#"><p class="p1">Home</p></a>
+            </li>
+          </ul>
+
+          <button
+            class="btn btn-primary d-flex gap-2 align-items-center"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#addNewModal"
+          >
+            <i class="fa-solid fa-plus"></i>Add New Item
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <section class="mt-4">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search your tasks here"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                oninput="searchTask.apply(this, arguments)"
+              />
+              <span class="input-group-text" id="basic-addon1"
+                ><i class="fa-solid fa-magnifying-glass"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-4">
+        <div class="row task__contents">
+          <!-- <h5>Dynamic Cards</h5> -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Custom JS File -->
+    <script src="index.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Nabla&display=swap');
+
+p {
+    font-family: "Bungee Spice", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 24px;
+}
+
+.p1 {
+  font-family: "Honk", system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "MORF" 15,
+    "SHLN" 50;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: #ebf2ff !important;
+}
+
+.add_new_mobile_btn{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 15px 12px;
+    background-color: white;
+    width: 100%;
+    /* z-index: 3; */
+}
+
+@media (min-width: 760px){
+    .add_new_mobile_btn{
+        display: none;
+    }
+}
